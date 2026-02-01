@@ -24,6 +24,7 @@ function DashboardContent() {
     const searchParams = useSearchParams();
     const submitted = searchParams.get('submitted') === 'true';
     const [filterStatus, setFilterStatus] = useState<'all' | 'verifying'>('all');
+    const [searchQuery, setSearchQuery] = useState('');
 
     let displayTasks = [...mockTasks];
     let highlightId = null;
@@ -38,13 +39,20 @@ function DashboardContent() {
             confidenceScore: 0,
             createdAt: new Date(),
         };
-        // @ts-ignore - mockTasks might be typed strictly, we cast to any if needed or ensure types match
+        // @ts-ignore
         displayTasks = [newTask, ...mockTasks];
         highlightId = newTask.id;
     }
 
     if (filterStatus === 'verifying') {
         displayTasks = displayTasks.filter(t => t.status === 'verifying');
+    }
+
+    if (searchQuery) {
+        displayTasks = displayTasks.filter(t =>
+            t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            t.category.toLowerCase().includes(searchQuery.toLowerCase())
+        );
     }
 
     return (
@@ -103,6 +111,8 @@ function DashboardContent() {
                             <input
                                 type="text"
                                 placeholder="Search tasks..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
                                 style={{
                                     background: 'transparent', border: 'none', outline: 'none',
                                     color: '#ddd', fontSize: '0.85rem', width: '100%'
