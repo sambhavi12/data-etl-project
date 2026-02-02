@@ -64,7 +64,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-start gap-3 text-sm text-zinc-300">
                   <div className="mt-1 min-w-[16px]"><ShieldCheck size={16} className="text-emerald-400" /></div>
-                  <span>Architecture integration ready.</span>
+                  <span>The platform is ready for architecture integration.</span>
                 </div>
               </div>
 
