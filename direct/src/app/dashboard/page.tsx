@@ -8,6 +8,7 @@ import DataPipelineStatus from '@/components/dashboard/data-pipeline-status';
 import LiveAuditStream from '@/components/dashboard/live-audit-stream';
 import StatCard from '@/components/dashboard/stat-card';
 import GlobalNavbar from '@/components/global-navbar';
+import QualityChart from '@/components/dashboard/quality-chart';
 import { useDemoSimulator } from '@/hooks/use-demo-simulator';
 
 import Link from 'next/link';
@@ -70,12 +71,12 @@ function DashboardContent() {
                 {/* 2. Bento Grid Layout */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[minmax(180px,auto)]">
 
-                    {/* Card A (Main): Active Tasks (Spans 2 columns, 2 rows) */}
+                    {/* Card A (Main): Active Tasks (Spans 2 columns, 3 rows) */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.4 }}
-                        className="md:col-span-2 md:row-span-2 bento-card p-0 flex flex-col overflow-hidden group"
+                        className="md:col-span-2 md:row-span-3 bento-card p-0 flex flex-col overflow-hidden group"
                     >
                         <div className="flex justify-between items-center p-6 border-b border-white/5 bg-white/[0.02]">
                             <h2 className="text-lg font-semibold text-zinc-200 flex items-center gap-2">
@@ -129,6 +130,16 @@ function DashboardContent() {
                             value="98.2%"
                             trend="Top 1% Global"
                         />
+                    </motion.div>
+
+                    {/* Card: Quality Graph (Fills the gap above audit stream) */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.22 }}
+                        className="md:col-span-2 bento-card p-6 min-h-[220px]"
+                    >
+                        <QualityChart stats={mockStats} />
                     </motion.div>
 
                     {/* Card D (Engineering): AI Audit Stream */}
