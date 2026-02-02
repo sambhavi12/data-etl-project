@@ -143,6 +143,7 @@ function DashboardContent() {
                         </div>
                     </motion.div>
 
+
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -163,6 +164,50 @@ function DashboardContent() {
                         </div>
                         <div className="relative z-10">
                             <DataPipelineStatus />
+                        </div>
+                    </motion.div>
+
+                    {/* Card F: Active Agents (Fills the gap) */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.35 }}
+                        className="md:col-span-2 bento-card p-6 flex flex-col relative overflow-hidden"
+                    >
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="h-8 w-8 rounded-lg bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
+                                <Check size={16} className="text-orange-500" />
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-zinc-200 tracking-tight">Active Agents</h3>
+                                <p className="text-[10px] text-zinc-500 uppercase tracking-widest">Autonomous Workers</p>
+                            </div>
+                        </div>
+
+                        <div className="space-y-3">
+                            <div className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
+                                    <span className="text-sm text-zinc-300 font-medium">Validator_v2</span>
+                                </div>
+                                <span className="text-xs text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded-md border border-emerald-500/20">Active</span>
+                            </div>
+
+                            <div className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-2 h-2 rounded-full bg-yellow-500" />
+                                    <span className="text-sm text-zinc-300 font-medium">DataBuddy_AI</span>
+                                </div>
+                                <span className="text-xs text-yellow-500 bg-yellow-500/10 px-2 py-1 rounded-md border border-yellow-500/20">Idle</span>
+                            </div>
+
+                            <div className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-2 h-2 rounded-full bg-zinc-500" />
+                                    <span className="text-sm text-zinc-300 font-medium">Scraper_Node_04</span>
+                                </div>
+                                <span className="text-xs text-zinc-500 bg-zinc-500/10 px-2 py-1 rounded-md border border-zinc-500/20">Offline</span>
+                            </div>
                         </div>
                     </motion.div>
 
