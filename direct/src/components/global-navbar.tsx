@@ -1,6 +1,6 @@
 
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Bell, Search, User, LogOut, Settings, Wallet, Menu } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -14,6 +14,19 @@ interface GlobalNavbarProps {
 
 export default function GlobalNavbar({ searchQuery, onSearchChange, isDemoMode, onToggleDemo }: GlobalNavbarProps) {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const searchInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                searchInputRef.current?.focus();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
     return (
@@ -34,6 +47,7 @@ export default function GlobalNavbar({ searchQuery, onSearchChange, isDemoMode, 
                     <div className="relative w-full max-w-md">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={16} />
                         <input
+                            ref={searchInputRef}
                             type="text"
                             placeholder="Search tasks, buddies, or audits... (⌘K)"
                             value={searchQuery}

@@ -10,7 +10,7 @@ const STEPS = [
 
 export function useDemoSimulator(isActive: boolean) {
     const [currentStep, setCurrentStep] = useState(0);
-    const [logs, setLogs] = useState<string[]>([]);
+    const [logs, setLogs] = useState<{ timestamp: string; message: string; color: string }[]>([]);
 
     useEffect(() => {
         if (!isActive) return;
@@ -24,9 +24,14 @@ export function useDemoSimulator(isActive: boolean) {
                 const step = STEPS[next];
                 // Add timestamp
                 const time = new Date().toLocaleTimeString('en-US', { hour12: false, hour: "numeric", minute: "numeric", second: "numeric" });
-                const newLog = `[${time}] ${step.msg}`;
 
-                setLogs(prevLogs => [newLog, ...prevLogs].slice(0, 8));
+                const newLog = {
+                    timestamp: time,
+                    message: step.msg,
+                    color: step.color
+                };
+
+                setLogs(prevLogs => [newLog, ...prevLogs].slice(0, 10));
                 return next;
             });
         }, 3000); // Progress every 3 seconds
