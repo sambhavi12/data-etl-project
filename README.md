@@ -1,82 +1,75 @@
-# Automated Data ETL Pipeline (Wikipedia → PostgreSQL)
+# Direct | Autonomous Data Command Center 🟢
 
-A production-grade ETL (Extract, Transform, Load) pipeline that scrapes financial data from Wikipedia, cleans and normalizes it, and loads it into a PostgreSQL database. Designed with **industrial data engineering practices** including modular architecture, automated testing, and secure credential management.
+A full-stack **Data Engineering Platform** featuring a high-performance Python ETL engine and a cinematic real-time dashboard.
 
-## 🏗 Architecture
-**Wikipedia** (Source) ➔ **Python Scripts** (Extract/Transform) ➔ **PostgreSQL** (Destination)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Direct-emerald?style=for-the-badge&logo=vercel)](https://direct-website.onrender.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-- **Extract**: Scrapes HTML tables using `requests` with custom headers (User-Agent rotation).
-- **Transform**: 
-  - Standardizes column names (snake_case).
-  - Cleans currency data (Regex removal of `$` and `,`).
-  - Flattening MultiIndex headers.
-- **Load**: Inserts data into PostgreSQL using `SQLAlchemy` (safe paramaterization).
-- **Automation**: Shell script wrapper (`run_etl.sh`) for Cron scheduling.
+## 🌟 Overview
+**Direct** is a "Command Center" for autonomous data agents. It visualizes the entire lifecycle of data—from raw extraction to database storage—in a production-ready interface designed for data engineers.
 
-## 🛠 Tech Stack
-- **Language**: Python 3.13
-- **Libraries**: Pandas, SQLAlchemy, Requests, Pytest, Python-Dotenv
-- **Database**: PostgreSQL 16+
-- **DevOps**: Cron (Automation), Pytest (Unit Testing)
+### 🏗 System Architecture
+**Wikipedia** (Source) ➔ **Python ETL** (Engine) ➔ **PostgreSQL** (Storage) ➔ **Next.js Dashboard** (Visualization)
+
+## 🖥️ Command Center (Frontend)
+The dashboard is built for high information density and visual impact.
+- **Tech Stack**: Next.js 14, TypeScript, TailwindCSS, Framer Motion.
+- **Features**:
+  - **Live Audit Stream**: WebSocket-style real-time logs.
+  - **Visual Data**: Recharts integration for data quality trends.
+  - **Bento Grid Layout**: Optimized for professional workflows.
+  - **Glassmorphism UI**: "Deep Charcoal" & Emerald aesthetic.
+
+## ⚙️ ETL Engine (Backend)
+A production-grade pipeline that extracts financial data, normalizes it, and ensures data integrity.
+- **Tech Stack**: Python 3.13, Pandas, SQLAlchemy, PostgreSQL.
+- **Extract**: Scrapes HTML tables using `requests` with User-Agent rotation.
+- **Transform**: Cleans currency data (`$1,200.50` → `1200.50`), normalizes headers to `snake_case`.
+- **Load**: Transactional inserts into PostgreSQL using `SQLAlchemy`.
+- **Automation**: Cron-ready shell scripts.
 
 ## 📂 Project Structure
 ```bash
 data_etl_project/
-├── etl/                 # Source Code Package
+├── direct/              # Frontend Application (Next.js)
+│   ├── src/app/         # App Router & Pages
+│   └── src/components/  # Dashboard UI Components
+├── etl/                 # Backend ETL Package
 │   ├── extract.py       # Scrapes data from web
-│   ├── transform.py     # Cleans and normalizes pandas DataFrame
+│   ├── transform.py     # Cleans and normalizes
 │   ├── load.py          # Loading logic (Postgres)
-│   └── utils.py         # Shared logging configuration
+│   └── utils.py         # Shared logging
 ├── tests/               # Unit Test Suite
-│   └── test_transform.py
-├── main.py              # Entry point for the pipeline
-├── run_etl.sh           # Bash wrapper for Cron automation
-├── requirements.txt     # Python dependencies
-└── .env                 # Database credentials (Not committed)
+├── main.py              # Pipeline Entry Point
+└── run_etl.sh           # Automation Script
 ```
 
 ## 🚀 How to Run
 
-### 1. Prerequisites
-- Python 3.9+
-- PostgreSQL installed and running locally.
-
-### 2. Setup
-Clone the repository and install dependencies:
+### 1. Backend (ETL Pipeline)
 ```bash
-git clone https://github.com/YourUsername/data-etl-project.git
-cd data-etl-project
+# Setup Python Environment
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-```
 
-### 3. Configuration
-Create a `.env` file in the root directory:
-```bash
-DB_USER=postgres
-DB_PASS=your_password
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=postgres
-```
-
-### 4. Run Pipeline
-```bash
+# Run the Pipeline
 python main.py
 ```
-*Check `etl_log.txt` for execution details.*
 
-### 5. Run Tests
+### 2. Frontend (Dashboard)
 ```bash
-pytest
+cd direct
+npm install
+npm run dev
+# Open http://localhost:3000
 ```
 
 ## 📈 Key Features
-- **Robust Error Handling**: Handles 403 Forbidden errors and missing columns gracefully.
-- **Security**: Database credentials are never hardcoded (using `python-dotenv`).
-- **Data Quality**: Unit tests ensure data cleaning logic handles messy formatting (e.g., "$1,200.50").
-- **Modular Design**: Separation of concerns allows for easy maintenance and scaling.
+- **Real-time Monitoring**: Watch agents (validators, scrapers) work in real-time.
+- **Robust Error Handling**: Gracefully handles network failures and schema changes.
+- **Security**: Database credentials managed via `.env`.
+- **Data Quality**: Automated unit tests for data transformation logic.
 
 ## 👤 Author
 [Shambhavi Pandey] - Data Engineering Enthusiast
