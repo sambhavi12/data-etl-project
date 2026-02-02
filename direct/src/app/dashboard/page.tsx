@@ -8,6 +8,7 @@ import DataPipelineStatus from '@/components/dashboard/data-pipeline-status';
 import LiveAuditStream from '@/components/dashboard/live-audit-stream';
 import StatCard from '@/components/dashboard/stat-card';
 import GlobalNavbar from '@/components/global-navbar';
+import { useDemoSimulator } from '@/hooks/use-demo-simulator';
 
 import Link from 'next/link';
 import { Filter, Plus, X, Zap, ArrowUpRight, Check } from 'lucide-react';
@@ -20,6 +21,10 @@ function DashboardContent() {
     const submitted = searchParams.get('submitted') === 'true';
     const [filterStatus, setFilterStatus] = useState<'all' | 'verifying'>('all');
     const [searchQuery, setSearchQuery] = useState('');
+    const [isDemoMode, setIsDemoMode] = useState(false);
+
+    // Demo Simulator Hook
+    const { logs: demoLogs } = useDemoSimulator(isDemoMode);
 
     let displayTasks = [...mockTasks];
     let highlightId = null;
@@ -53,7 +58,12 @@ function DashboardContent() {
     return (
         <div className="min-h-screen bg-[#09090b] text-zinc-100 font-sans pb-16 selection:bg-emerald-500/30">
             <DashboardToast />
-            <GlobalNavbar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+            <GlobalNavbar
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                isDemoMode={isDemoMode}
+                onToggleDemo={() => setIsDemoMode(!isDemoMode)}
+            />
 
             <div className="max-w-[1600px] mx-auto px-6 mt-8">
 
@@ -129,7 +139,7 @@ function DashboardContent() {
                         className="md:col-span-2 bento-card p-1 min-h-[220px]"
                     >
                         <div className="h-full rounded-[20px] overflow-hidden bg-black/40">
-                            <LiveAuditStream />
+                            <LiveAuditStream demoLogs={demoLogs} />
                         </div>
                     </motion.div>
 

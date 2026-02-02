@@ -7,9 +7,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface GlobalNavbarProps {
     searchQuery?: string;
     onSearchChange?: (query: string) => void;
+    isDemoMode?: boolean;
+    onToggleDemo?: () => void;
 }
 
-export default function GlobalNavbar({ searchQuery, onSearchChange }: GlobalNavbarProps) {
+export default function GlobalNavbar({ searchQuery, onSearchChange, isDemoMode, onToggleDemo }: GlobalNavbarProps) {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
 
     return (
@@ -41,6 +43,25 @@ export default function GlobalNavbar({ searchQuery, onSearchChange }: GlobalNavb
 
                 {/* Right: Actions */}
                 <div className="flex items-center gap-4">
+                    {/* Demo Toggle */}
+                    {onToggleDemo && (
+                        <div className="flex items-center gap-2 mr-2">
+                            <span className={`text-[10px] uppercase font-bold tracking-wider ${isDemoMode ? 'text-emerald-400' : 'text-zinc-500'}`}>
+                                {isDemoMode ? 'Demo Live' : 'Demo Off'}
+                            </span>
+                            <button
+                                onClick={onToggleDemo}
+                                className={`w-10 h-5 rounded-full relative transition-colors ${isDemoMode ? 'bg-emerald-500/20 border border-emerald-500/50' : 'bg-zinc-800 border border-zinc-700'}`}
+                            >
+                                <motion.div
+                                    className={`absolute top-0.5 w-3.5 h-3.5 rounded-full ${isDemoMode ? 'bg-emerald-400 shadow-[0_0_10px_#10b981]' : 'bg-zinc-500'}`}
+                                    animate={{ left: isDemoMode ? 'calc(100% - 18px)' : '2px' }}
+                                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                                />
+                            </button>
+                        </div>
+                    )}
+
                     {/* Notifications */}
                     <button className="relative rounded-full p-2 text-zinc-400 hover:bg-zinc-900 hover:text-white transition-colors">
                         <Bell size={20} />
