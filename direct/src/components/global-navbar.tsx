@@ -2,6 +2,7 @@
 "use client";
 import React, { useState } from 'react';
 import { Bell, Search, User, LogOut, Settings, Wallet, Menu } from 'lucide-react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface GlobalNavbarProps {
@@ -140,9 +141,9 @@ export default function GlobalNavbar({ searchQuery, onSearchChange, isDemoMode, 
                                     <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-900">
                                         <Wallet size={16} /> Wallet: $1,240.00
                                     </button>
-                                    <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-900">
+                                    <Link href="/settings" className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-900">
                                         <Settings size={16} /> Settings
-                                    </button>
+                                    </Link>
                                     <div className="my-1 h-px bg-white/5" />
                                     <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-red-400 hover:bg-red-500/10">
                                         <LogOut size={16} /> Sign Out
