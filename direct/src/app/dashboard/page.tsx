@@ -2,12 +2,14 @@
 'use client';
 
 import { mockTasks, mockStats } from '@/lib/mock-data';
-import StatRibbon from '@/components/dashboard/stat-ribbon';
 import ProfessionalTaskTable from '@/components/dashboard/professional-task-table';
-import { ActivitySidebar } from '@/components/dashboard/activity-sidebar';
 import QualityChart from '@/components/dashboard/quality-chart';
 import NotificationDropdown from '@/components/dashboard/notification-dropdown';
 import DashboardToast from '@/components/dashboard/dashboard-toast';
+import FinancialTerminal from '@/components/dashboard/financial-terminal';
+import DataPipelineStatus from '@/components/dashboard/data-pipeline-status';
+import LiveAuditStream from '@/components/dashboard/live-audit-stream';
+
 import Link from 'next/link';
 import { Search, UserCircle, LayoutGrid, Filter, Plus, X } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -15,12 +17,6 @@ import { useSearchParams } from 'next/navigation';
 import { useState, Suspense } from 'react';
 
 function DashboardContent() {
-    // We need to resolve useSearchParams on the client side now that we switched to Client Component for Framer Motion?
-    // Wait, typical pattern for Page in App Router is Server Component.
-    // Specifying 'use client' at top makes the whole page client.
-    // Framer Motion generally requires client components.
-    // I will keep it 'use client' for the rich interactivity requested.
-
     const searchParams = useSearchParams();
     const submitted = searchParams.get('submitted') === 'true';
     const [filterStatus, setFilterStatus] = useState<'all' | 'verifying'>('all');
@@ -60,7 +56,7 @@ function DashboardContent() {
             minHeight: '100vh',
             background: '#09090b', // Zinc 950
             backgroundImage: 'radial-gradient(circle at 50% 0%, rgba(120, 119, 198, 0.1) 0%, transparent 50%)', // Subtle gradient
-            fontFamily: 'Inter, sans-serif',
+            fontFamily: 'var(--font-sans)',
             color: '#e4e4e7',
             paddingBottom: '4rem'
         }}>
@@ -135,8 +131,8 @@ function DashboardContent() {
                     </div>
                 </header>
 
-                {/* 2. Macro Stats Row (Bento Style within component) */}
-                <StatRibbon stats={mockStats} />
+                {/* 2. Phase 2: Financial Terminal (Refactored from StatRibbon) */}
+                <FinancialTerminal stats={mockStats} />
 
                 {/* 3. The Main Bento Grid */}
                 <div style={{
@@ -209,10 +205,11 @@ function DashboardContent() {
                     {/* Right Column: AI Activity Stream & Performance (Span 4) */}
                     <div style={{ gridColumn: 'span 4', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
 
-                        {/* AI Audit Stream Sidebar */}
-                        <div style={{ height: '400px' }}>
-                            <ActivitySidebar />
-                        </div>
+                        {/* Phase 2: Data Pipeline Status Widget */}
+                        <DataPipelineStatus />
+
+                        {/* Phase 2: Live Audit Stream (Terminal Style) */}
+                        <LiveAuditStream />
 
                         {/* Performance Chart Bento Card */}
                         <motion.div

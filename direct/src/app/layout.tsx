@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
   title: "Direct | Execution First",
@@ -14,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body style={{ background: '#09090b', color: '#fff' }}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} antialiased`} style={{ background: '#09090b', color: '#fff' }}>
         {children}
         <Toaster position="top-center" theme="dark" />
       </body>
