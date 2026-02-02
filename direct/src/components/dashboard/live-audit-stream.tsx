@@ -18,14 +18,23 @@ export default function LiveAuditStream() {
     const [logs, setLogs] = useState<string[]>([]);
 
     useEffect(() => {
-        // Initial logs
-        setLogs(LOG_MESSAGES.slice(0, 4));
+        const fetchLogs = async () => {
+            try {
+                const res = await fetch('/api/logs');
+                const data = await res.json();
+                if (data.logs) {
+                    setLogs(data.logs.slice(0, 8));
+                }
+            } catch (e) {
+                console.error("Failed to fetch logs", e);
+            }
+        };
 
-        // Simulate incoming logs
-        const interval = setInterval(() => {
-            const randomLog = LOG_MESSAGES[Math.floor(Math.random() * LOG_MESSAGES.length)];
-            setLogs(prev => [randomLog, ...prev].slice(0, 8)); // Keep last 8 logs
-        }, 3000);
+        // Initial fetch
+        fetchLogs();
+
+        // Poll every 1 second
+        const interval = setInterval(fetchLogs, 1000);
 
         return () => clearInterval(interval);
     }, []);
