@@ -1,36 +1,38 @@
-:root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --primary: #ffffff;
-  --secondary: #333333;
-  --accent: #2c2c2c;
-  --success: #00e054;
-  --error: #ff3b30;
+@import "tailwindcss";
 
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+@theme {
+  --color-accent-emerald: #10b981;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+@layer base {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --glass-border: rgba(255, 255, 255, 0.08);
+  }
 }
 
-html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Professional Card Style */
+.bento-card {
+  @apply rounded-[24px] border border-[--glass-border] bg-[#121215]/50 transition-all duration-300 hover:border-emerald-500/30 hover:shadow-[0_0_30px_#10b9810d];
 }
 
-.nav-link:hover {
-  color: var(--primary) !important;
+/* The "Data Stream" Animation */
+@keyframes flow {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+.data-flow-bg {
+  mask-image: linear-gradient(to bottom, transparent, black, transparent);
 }
