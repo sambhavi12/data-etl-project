@@ -2,7 +2,7 @@ import os
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
 from urllib.parse import quote_plus
-from .utils import log_progress
+from etl.utils import log_progress
 
 # Load environment variables once at module level (or inside function)
 load_dotenv()

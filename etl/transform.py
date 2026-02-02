@@ -1,6 +1,6 @@
 import pandas as pd
 from datetime import datetime
-from .utils import log_progress
+from etl.utils import log_progress
 
 def transform(df):
     """

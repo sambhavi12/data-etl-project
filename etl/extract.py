@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 from io import StringIO
-from .utils import log_progress
+from etl.utils import log_progress
 
 def extract():
     """
