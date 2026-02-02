@@ -3,14 +3,14 @@
 
 import { mockTasks, mockStats } from '@/lib/mock-data';
 import ProfessionalTaskTable from '@/components/dashboard/professional-task-table';
-import NotificationDropdown from '@/components/dashboard/notification-dropdown';
 import DashboardToast from '@/components/dashboard/dashboard-toast';
 import DataPipelineStatus from '@/components/dashboard/data-pipeline-status';
 import LiveAuditStream from '@/components/dashboard/live-audit-stream';
 import StatCard from '@/components/dashboard/stat-card';
+import GlobalNavbar from '@/components/global-navbar';
 
 import Link from 'next/link';
-import { Search, UserCircle, LayoutGrid, Filter, Plus, X, Zap } from 'lucide-react';
+import { Filter, Plus, X, Zap, ArrowUpRight, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'next/navigation';
 import { useState, Suspense } from 'react';
@@ -53,53 +53,9 @@ function DashboardContent() {
     return (
         <div className="min-h-screen bg-[#09090b] text-zinc-100 font-sans pb-16 selection:bg-emerald-500/30">
             <DashboardToast />
+            <GlobalNavbar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
-            <div className="max-w-[1600px] mx-auto px-6">
-
-                {/* 1. Header */}
-                <header className="sticky top-0 z-40 mb-8 flex items-center justify-between py-6 border-b border-white/5 bg-[#09090b]/80 backdrop-blur-xl -mx-6 px-6">
-                    <div className="flex items-center gap-6">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-zinc-100 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-                                <LayoutGrid size={22} className="text-black" />
-                            </div>
-                            <h1 className="text-2xl font-bold tracking-tighter text-white">Direct.</h1>
-                        </div>
-
-                        <div className="hidden md:flex items-center gap-2 bg-[#121215] px-4 py-2 rounded-full border border-white/5 shadow-inner">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                            </span>
-                            <span className="text-xs font-medium text-zinc-400 font-mono">System v3.0 (Live)</span>
-                        </div>
-
-                        <div className="relative group ml-4">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 group-hover:text-zinc-300 transition-colors" size={16} />
-                            <input
-                                type="text"
-                                placeholder="Search tasks (Cmd+K)..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="bg-[#121215] border border-white/5 rounded-full pl-11 pr-12 py-2.5 text-sm text-zinc-300 focus:outline-none focus:border-zinc-700 w-80 transition-all hover:bg-zinc-900 shadow-sm font-medium"
-                            />
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-6">
-                        <NotificationDropdown />
-                        <div className="w-px h-8 bg-white/10"></div>
-                        <div className="flex items-center gap-3 cursor-pointer group">
-                            <div className="text-right leading-tight">
-                                <p className="text-sm font-semibold text-zinc-200 group-hover:text-emerald-400 transition-colors">Shambhavi P.</p>
-                                <p className="text-[10px] text-zinc-500 font-mono uppercase tracking-wider">Senior Engineer</p>
-                            </div>
-                            <div className="p-1 rounded-full border border-white/10 bg-zinc-900 group-hover:border-emerald-500/50 transition-all">
-                                <UserCircle size={36} strokeWidth={1.5} className="text-zinc-200" />
-                            </div>
-                        </div>
-                    </div>
-                </header>
+            <div className="max-w-[1600px] mx-auto px-6 mt-8">
 
                 {/* 2. Bento Grid Layout */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[minmax(180px,auto)]">
@@ -200,6 +156,12 @@ function DashboardContent() {
                         </div>
                     </motion.div>
 
+                </div>
+
+                <div className="mt-12 mb-6 flex justify-center">
+                    <p className="text-zinc-600 text-xs font-mono">
+                        Engineered in Bengaluru, India • <a href="https://github.com/sambhavi12/data-etl-project" target="_blank" className="hover:text-emerald-500 transition-colors">GitHub</a>
+                    </p>
                 </div>
             </div>
         </div>
